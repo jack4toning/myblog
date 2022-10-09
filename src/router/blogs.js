@@ -14,7 +14,7 @@ const { CREATE_BLOG_FAILED, INVALID_ID, NOT_LOGGED_IN } = blogErrMsg;
 const handleBlogsRoute = async (req) => {
   const { method, route, queryString, body = {} } = req;
   const { id: blogId, keyword, author, isadmin } = queryString;
-  let authorName = author;
+  const authorName = author;
 
   if (method === 'GET' && route === '/api/blogs') {
     if (blogId) {
