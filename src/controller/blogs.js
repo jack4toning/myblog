@@ -12,7 +12,7 @@ const {
 
 const getBlogList = (keyword, author) => {
   return new Promise((resolve) => {
-    const sql = `select a.id, a.title, a.content, a.createtime, b.username from blogs a join users b on a.authorId = b.id where b.username like '%${author}%' and (a.title like '%${keyword}%' or a.content like '%${keyword}%') order by a.createtime desc;`;
+    const sql = `select a.id, a.title, a.category, a.subCategory, a.content, b.username, b.avatarUrl, a.createtime, a.coverUrl from blogs a join users b on a.authorId = b.id where b.username like '%${author}%' and (a.title like '%${keyword}%' or a.content like '%${keyword}%') order by a.createtime desc;`;
     query(sql, (err, res) => {
       let error = err;
       let result = res;
@@ -27,7 +27,7 @@ const getBlogList = (keyword, author) => {
 // Attention! when get empty result, it still need to be recognized an error on front side because that's may due to wrong id.
 const getBlog = (id) => {
   return new Promise((resolve) => {
-    const sql = `select a.id, a.title, a.content, a.createtime, b.username from blogs a join users b on a.authorId = b.id where a.id = ${id};`;
+    const sql = `select a.id, a.title, a.category, a.subCategory, a.content, b.username, b.avatarUrl, a.createtime, a.coverUrl from blogs a join users b on a.authorId = b.id where a.id = ${id};`;
     query(sql, (err, result) => {
       let error = err;
       error = error || result.length === 0 ? FETCH_BLOG_FAILED : null;

@@ -24,11 +24,11 @@ const handleBlogsRoute = async (req) => {
     }
     // fetch blogs
     // check if admin page list request
-    if (isadmin) {
-      authorName = req.session?.username;
-      if (!authorName)
-        return makeReturnData({ error: NOT_LOGGED_IN, result: undefined });
-    }
+    // if (isadmin) {
+    //   authorName = req.session?.username;
+    //   if (!authorName)
+    //     return makeReturnData({ error: NOT_LOGGED_IN, result: undefined });
+    // }
     const response = await getBlogList(keyword || '', authorName || '');
     return makeReturnData(response);
   }
