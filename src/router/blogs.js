@@ -9,12 +9,11 @@ const { verifyProps, getDefinedProps, makeReturnData } = require('../utils');
 const { ErrorModel } = require('../model');
 const { blogErrMsg } = require('../config/error');
 
-const { CREATE_BLOG_FAILED, INVALID_ID, NOT_LOGGED_IN } = blogErrMsg;
+const { CREATE_BLOG_FAILED, INVALID_ID } = blogErrMsg;
 
 const handleBlogsRoute = async (req) => {
   const { method, route, queryString, body = {} } = req;
-  const { id: blogId, keyword, author, isadmin } = queryString;
-  const authorName = author;
+  const { id: blogId, keyword } = queryString;
 
   if (method === 'GET' && route === '/api/blogs') {
     if (blogId) {
@@ -23,13 +22,7 @@ const handleBlogsRoute = async (req) => {
       return makeReturnData(response);
     }
     // fetch blogs
-    // check if admin page list request
-    // if (isadmin) {
-    //   authorName = req.session?.username;
-    //   if (!authorName)
-    //     return makeReturnData({ error: NOT_LOGGED_IN, result: undefined });
-    // }
-    const response = await getBlogList(keyword || '', authorName || '');
+    const response = await getBlogList(keyword || '');
     return makeReturnData(response);
   }
 

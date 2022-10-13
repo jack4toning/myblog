@@ -10,9 +10,9 @@ const {
   DELETE_BLOG_FAILED,
 } = blogErrMsg;
 
-const getBlogList = (keyword, author) => {
+const getBlogList = (keyword) => {
   return new Promise((resolve) => {
-    const sql = `select a.id, a.title, a.category, a.subCategory, a.content, b.username, b.avatarUrl, a.createtime, a.coverUrl from blogs a join users b on a.authorId = b.id where b.username like '%${author}%' and (a.title like '%${keyword}%' or a.content like '%${keyword}%') order by a.createtime desc;`;
+    const sql = `select a.id, a.title, a.category, a.subCategory, a.content, b.username, b.avatarUrl, a.createtime, a.coverUrl from blogs a join users b on a.authorId = b.id where b.username like '%${keyword}%' or a.category like '%${keyword}%' or a.title like '%${keyword}%' or a.content like '%${keyword}%' order by a.createtime desc;`;
     query(sql, (err, res) => {
       let error = err;
       let result = res;
